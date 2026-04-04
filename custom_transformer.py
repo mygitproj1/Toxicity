@@ -48,7 +48,9 @@ class CustomToxicityTransformer(nn.Module):
             dropout=0.1, 
             batch_first=True # Keeps our data shape as [batch_size, sequence_length, features]
         )
-        self.transformer_encoder = nn.TransformerEncoder(encoder_layers, num_layers=num_layers)
+        self.transformer_encoder = nn.TransformerEncoder(encoder_layers, num_layers=num_layers, 
+                                                         enable_nested_tensor=False  # <--- THIS DISABLES THE BUGGY FAST-PATH
+                                                         )
         
         # 4. Classification Head (Maps to our 6 toxicity labels)
         self.classifier = nn.Sequential(
