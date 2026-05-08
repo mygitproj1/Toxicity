@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import math
-import intel_extension_for_pytorch as ipex
 
 print("--- Hardware Verification ---")
 device = torch.device("xpu" if torch.xpu.is_available() else "cpu")
