@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import torch
-import intel_extension_for_pytorch as ipex
 from torch.utils.data import DataLoader, TensorDataset
 from transformers import AutoTokenizer
 from sklearn.metrics import classification_report, f1_score
