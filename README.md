@@ -8,7 +8,7 @@ Phase 1: Baseline - TF-IDF Vectorization with Logistic Regression.
 
 Phase 2: Deep Learning - Fine-tuning roberta-base via Hugging Face Transformers.
 
-Phase 3: Custom Architecture - (In Progress) A ground-up PyTorch Transformer model for layer-by-layer architectural comparison.
+Phase 3: Custom Architecture - A ground-up PyTorch Transformer model for layer-by-layer architectural comparison.
 
 🛠️ Tech Stack & MLOps Infrastructure
 Deep Learning Framework: PyTorch with Intel Extension (ipex)
