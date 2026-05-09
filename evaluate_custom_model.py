@@ -5,6 +5,9 @@ import intel_extension_for_pytorch as ipex
 from torch.utils.data import DataLoader, TensorDataset
 from transformers import AutoTokenizer
 from sklearn.metrics import classification_report, f1_score
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import multilabel_confusion_matrix
 
 from custom_transformer import CustomToxicityTransformer
 
@@ -78,3 +81,30 @@ macro_f1 = f1_score(all_labels, all_predictions, average='macro', zero_division=
 print("\n=== Custom Transformer Evaluation Results ===")
 print(f"Macro F1-Score: {macro_f1:.4f}\n")
 print(classification_report(all_labels, all_predictions, target_names=toxicity_labels, zero_division=0))
+
+# --- CONFUSION MATRIX CODE ---
+print("\nGenerating Multi-Label Confusion Matrices...")
+
+# 1. Calculate the matrices
+mcm = multilabel_confusion_matrix(all_labels, all_predictions)
+
+# 2. Set up the visual plot (2 rows, 3 columns to fit all 6 categories)
+fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+fig.suptitle('Custom Transformer: Toxicity Confusion Matrices', fontsize=16)
+
+# 3. Loop through each of the 6 categories and plot them
+for i, (ax, matrix, label) in enumerate(zip(axes.flatten(), mcm, toxicity_labels)):
+    # Create a heatmap for each 2x2 matrix
+    sns.heatmap(matrix, annot=True, fmt='d', cmap='Blues', ax=ax, 
+                xticklabels=['Negative', 'Positive'], 
+                yticklabels=['Negative', 'Positive'])
+    ax.set_title(label.capitalize().replace('_', ' '))
+    ax.set_xlabel('Predicted Label')
+    ax.set_ylabel('True Label')
+
+# 4. Show the plot
+plt.tight_layout()
+plt.subplots_adjust(top=0.90)
+plt.show()
+
+print("Pipeline Complete!")
