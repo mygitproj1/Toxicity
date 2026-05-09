@@ -1,0 +1,18 @@
+# --- Master Ignore Rules ---
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Heavy Models & Checkpoints (Root level)
+roberta_checkpoints/
+roberta_toxicity_final/
+*.joblib
+*.pt
+
+# Generated Reports
+toxicity_model_results.csv*
+
+# DVC Cache & Local Data
+.dvc/cache/
+data/train.csv
